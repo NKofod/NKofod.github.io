@@ -257,15 +257,6 @@ title: US Election
 			fillColor: getColor(feature.properties.margin)
 		};
 	}
-	function statestyle(feature) {
-		return {
-			weight: 3,
-			opacity: 0,
-			color: '#000000',
-			dashArray: '',
-			fillOpacity: 0
-		};
-	}
 
 	function highlightFeature(e) {
 		const layer = e.target;
@@ -289,9 +280,7 @@ title: US Election
 		style,
 		onEachFeature
 	}).addTo(cmap);
-	const sgeojson = L.geoJson(statesData, {
-		statestyle
-	}).addTo(cmap);
+
 	function resetHighlight(e) {
 		cgeojson.resetStyle(e.target);
 		cinfo.update();
