@@ -40,6 +40,7 @@
     L.Browser.webkit3d = false;
     L.Browser.any3d = false;
 	const map = L.map('map').setView([37.8, -96], 4);
+    var selectedLayer;
 
 	const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 		maxZoom: 19,
@@ -87,6 +88,7 @@
 
 	function highlightFeature(e) {
 		const layer = e.target;
+        removeHighlight(layer);
 		layer.setStyle({
 			weight: 5,
 			color: '#666',
@@ -97,6 +99,7 @@
 		layer.bringToFront();
 
 		info.update(layer.feature.properties);
+        selectedLayer = layer;
 	}
     
 
@@ -116,11 +119,10 @@
 	}
     function removeHighlight(layer) {
     if (selectedLayer && (selectedLayer !== layer)){
-        resetHighlight(layer); 
+        resetHighlight(selectedLayer); 
     }       
     }
 	function onEachFeature(feature, layer) {
-        removeHighlight(layer)
 		layer.on({
 			click: highlightFeature
 		});
