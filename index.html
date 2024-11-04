@@ -70,15 +70,15 @@ title: US Election
 			<tr/>
 			<tr> 
 				<td><b>Donald Trump</b></td>
-				<td>${props.trump}</td> 
+				<td>${props.trump}%</td> 
 			</tr> 
 			<tr>
 				<td><b>Others</b></td>
-				<td>$props.third_party</td>
+				<td>${props.third_party}%</td>
 			</tr>
 			<tr>
 				<td><b>Progress:</b></td>
-				<td>$props.progress</td> 
+				<td>${props.progress}%</td> 
 			</tr>
 		</table>` : 'Click on a state';
 		this._div.innerHTML = `<h4>Results </h4>${contents}`;
