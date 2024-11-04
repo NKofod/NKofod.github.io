@@ -152,5 +152,24 @@
 
 
 
+<div id='map2'></div>
+
+<script>
+
+	const map = L.map('map2', {
+		crs: L.CRS.Simple,
+		minZoom: -3
+	});
+
+	const bounds = [[-26.5, -25], [1021.5, 1023]];
+	const image = L.imageOverlay('us_states.svg', bounds).addTo(map);
+
+	const sol = L.latLng([145, 175]);
+	const marker = L.marker(sol).addTo(map);
+
+	map.setView([70, 120], 1);
+
+</script>
+
 </body>
 </html>
