@@ -156,18 +156,18 @@
 
 <script>
 
-	const map = L.map('map2', {
+	const map2 = L.map('map2', {
 		crs: L.CRS.Simple,
 		minZoom: -3
 	});
 
 	const bounds = [[-26.5, -25], [1021.5, 1023]];
-	const image = L.imageOverlay('us_states.svg', bounds).addTo(map);
+	const image = L.imageOverlay('us_states.svg', bounds).addTo(map2);
 
 	const sol = L.latLng([145, 175]);
-	const marker = L.marker(sol).addTo(map);
+	const marker = L.marker(sol).addTo(map2);
 
-	map.setView([70, 120], 1);
+	map2.setView([70, 120], 1);
 
 </script>
 
