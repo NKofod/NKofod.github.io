@@ -164,7 +164,7 @@ title: US Election
 		const grades = [-10, -5, -2.5, -0.5, 0.5, 2.5, 5, 10];
 		const labels = [];
 		let from, to;
-		labels.push(`<i style="background:${getColor(-10)}"></i> Below -10$`);
+		labels.push(`<b>Margin</b><i style="background:${getColor(-10)}"></i> Below -10`);
 		for (let i = 0; i < grades.length; i++) {
 			from = grades[i];
 			to = grades[i + 1];
@@ -208,7 +208,7 @@ title: US Election
 	};
 
 	cinfo.update = function (props) {
-		const contents = props ? `<b>${props.name}</b><br />
+		const contents = props ? `<b>${props.state} - ${props.name}</b><br />
 		<table> 
 			<tr>
 				<td><b> Kamala Harris</b></td>
@@ -248,12 +248,21 @@ title: US Election
 
 	function style(feature) {
 		return {
-			weight: 2,
+			weight: 0.5,
 			opacity: 1,
 			color: 'white',
 			dashArray: '3',
 			fillOpacity: 0.7,
 			fillColor: getColor(feature.properties.margin)
+		};
+	}
+	function statestyle(feature) {
+		return {
+			weight: 3,
+			opacity: 1,
+			color: '#666',
+			dashArray: '',
+			fillOpacity: 0
 		};
 	}
 
@@ -279,7 +288,9 @@ title: US Election
 		style,
 		onEachFeature
 	}).addTo(cmap);
-
+	const sgeojson = L.geoJson(statesData, {
+		statestyle
+	}).addTo(map);
 	function resetHighlight(e) {
 		cgeojson.resetStyle(e.target);
 		cinfo.update();
@@ -308,7 +319,7 @@ title: US Election
 		const cgrades = [-10, -5, -2.5, -0.5, 0.5, 2.5, 5, 10];
 		const clabels = [];
 		let from, to;
-		clabels.push(`<i style="background:${getColor(-10)}"></i> Below -10$`);
+		clabels.push(`<b>Margin</b><i style="background:${getColor(-10)}"></i> Below -10`);
 		for (let i = 0; i < cgrades.length; i++) {
 			from = cgrades[i];
 			to = cgrades[i + 1];
