@@ -89,17 +89,15 @@ title: US Election
 
 	// get color depending on population density value
 	function getColor(d) {
-		return d < -10 ? '#FF0000' :
+		return d <= -10 ? '#FF0000' :
 			d < -5  ? '#FF2B2B' :
 			d < -2.5  ? '#FF5555' :
-			d < -1  ? '#FF8080' :
 			d < -0.5   ? '#FFAAAA' :
 			d < 0.5  ? '#FFFFFF' :
-			d < 1 ? '#D5D5FF' :
 			d < 2.5 ? '#8080FF' :
 			d < 5  ? '#5555FF' :
 			d < 10  ? '#2B2BFF' :
-			d > 10   ? '#0000FF' : '#99FF00';
+			d >= 10   ? '#0000FF' : '#99FF00';
 	}
 
 	function style(feature) {
@@ -161,15 +159,15 @@ title: US Election
 	legend.onAdd = function (map) {
 
 		const div = L.DomUtil.create('div', 'info legend');
-		const grades = [0, 10, 20, 50, 100, 200, 500, 1000];
+		const grades = [-10, -5, -2.5, -0.5, 0.5, 2.5, 5, 10];
 		const labels = [];
 		let from, to;
-
+		labels.push(`<i style="background:${getColor(-10)}"></i> Below ${from}$`);
 		for (let i = 0; i < grades.length; i++) {
 			from = grades[i];
 			to = grades[i + 1];
 
-			labels.push(`<i style="background:${getColor(from + 1)}"></i> ${from}${to ? `&ndash;${to}` : '+'}`);
+			labels.push(`<i style="background:${getColor(from + 1)}"></i> ${from}${to ? `&ndash; ${to}` : '+'}`);
 		}
 
 		div.innerHTML = labels.join('<br>');
