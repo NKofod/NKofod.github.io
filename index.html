@@ -191,7 +191,7 @@ title: US Election
     L.Browser.webkit3d = false;
     L.Browser.any3d = false;
 	const cmap = L.map('map2').setView([37.8, -96], 4);
-    var selectedLayer;
+    var cselectedLayer;
 
 	const ctiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 		maxZoom: 19,
@@ -270,7 +270,7 @@ title: US Election
 		layer.bringToFront();
 
 		cinfo.update(layer.feature.properties);
-        selectedLayer = layer;
+        cselectedLayer = layer;
 	}
     
 
@@ -278,7 +278,7 @@ title: US Election
 	const cgeojson = L.geoJson(countyData, {
 		style,
 		onEachFeature
-	}).addTo(map);
+	}).addTo(cmap);
 
 	function resetHighlight(e) {
 		cgeojson.resetStyle(e.target);
@@ -289,8 +289,8 @@ title: US Election
 		cmap.fitBounds(e.target.getBounds());
 	}
     function removeHighlight(layer) {
-    if (selectedLayer && (selectedLayer !== layer)){
-        resetHighlight(selectedLayer); 
+    if (cselectedLayer && (cselectedLayer !== layer)){
+        resetHighlight(cselectedLayer); 
     }       
     }
 	function onEachFeature(feature, layer) {
@@ -305,18 +305,18 @@ title: US Election
 	clegend.onAdd = function (cmap) {
 
 		const div = L.DomUtil.create('div', 'info legend');
-		const grades = [-10, -5, -2.5, -0.5, 0.5, 2.5, 5, 10];
-		const labels = [];
+		const cgrades = [-10, -5, -2.5, -0.5, 0.5, 2.5, 5, 10];
+		const clabels = [];
 		let from, to;
-		labels.push(`<i style="background:${getColor(-10)}"></i> Below -10$`);
-		for (let i = 0; i < grades.length; i++) {
-			from = grades[i];
-			to = grades[i + 1];
+		clabels.push(`<i style="background:${getColor(-10)}"></i> Below -10$`);
+		for (let i = 0; i < cgrades.length; i++) {
+			from = cgrades[i];
+			to = cgrades[i + 1];
 
-			labels.push(`<i style="background:${getColor(from + 1)}"></i> ${from}${to ? `&ndash; ${to}` : '+'}`);
+			clabels.push(`<i style="background:${getColor(from + 1)}"></i> ${from}${to ? `&ndash; ${to}` : '+'}`);
 		}
 
-		div.innerHTML = labels.join('<br>');
+		div.innerHTML = clabels.join('<br>');
 		return div;
 	};
 
