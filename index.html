@@ -62,7 +62,7 @@ title: US Election
 	};
 
 	info.update = function (props) {
-		const contents = props ? `<b>${probs.name}</b><br />
+		const contents = props ? `<b>${props.name}</b><br />
 		<table> 
 			<tr>
 				<td><b> Kamala Harris</b></td>
@@ -70,15 +70,15 @@ title: US Election
 			<tr/>
 			<tr> 
 				<td><b>Donald Trump</b></td>
-				<td>${probs.trump}</td> 
+				<td>${props.trump}</td> 
 			</tr> 
 			<tr>
 				<td><b>Others</b></td>
-				<td>$probs.third_party</td>
+				<td>$props.third_party</td>
 			</tr>
 			<tr>
 				<td><b>Progress:</b></td>
-				<td>$probs.progress</td> 
+				<td>$props.progress</td> 
 			</tr>
 		</table>` : 'Click on a state';
 		this._div.innerHTML = `<h4>Results </h4>${contents}`;
