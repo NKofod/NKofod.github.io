@@ -99,6 +99,7 @@
 
 		info.update(layer.feature.properties);
 	}
+    
 
 	/* global statesData */
 	const geojson = L.geoJson(statesData, {
@@ -117,9 +118,7 @@
 
 	function onEachFeature(feature, layer) {
 		layer.on({
-			mouseover: highlightFeature,
-			mouseout: resetHighlight,
-			click: zoomToFeature
+			click: highlightFeature
 		});
 	}
 
@@ -152,24 +151,7 @@
 
 
 
-<div id='map2'></div>
 
-<script>
-
-	const map2 = L.map('map2', {
-		crs: L.CRS.Simple,
-		minZoom: -3
-	});
-
-	const bounds = [[-26.5, -25], [1021.5, 1023]];
-	const image = L.imageOverlay('us_states.svg', bounds).addTo(map2);
-
-	const sol = L.latLng([145, 175]);
-	const marker = L.marker(sol).addTo(map2);
-
-	map2.setView([70, 120], 1);
-
-</script>
 
 </body>
 </html>
