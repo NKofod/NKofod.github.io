@@ -87,7 +87,6 @@
 
 	function highlightFeature(e) {
 		const layer = e.target;
-
 		layer.setStyle({
 			weight: 5,
 			color: '#666',
@@ -115,8 +114,13 @@
 	function zoomToFeature(e) {
 		map.fitBounds(e.target.getBounds());
 	}
-
+    function removeHighlight(layer) {
+    if (selectedLayer && (selectedLayer !== layer)){
+        resetHighlight(layer); 
+    }       
+    }
 	function onEachFeature(feature, layer) {
+        removeHighlight(layer)
 		layer.on({
 			click: highlightFeature
 		});
