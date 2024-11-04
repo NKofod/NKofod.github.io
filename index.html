@@ -37,6 +37,8 @@ title: US Election
 </head>
 <body>
 
+<h2>State results</h2>
+
 <div id='map'></div>
 
 <script src="us_states.js"></script>
@@ -162,7 +164,7 @@ title: US Election
 		const grades = [-10, -5, -2.5, -0.5, 0.5, 2.5, 5, 10];
 		const labels = [];
 		let from, to;
-		labels.push(`<i style="background:${getColor(-10)}"></i> Below ${from}$`);
+		labels.push(`<i style="background:${getColor(-10)}"></i> Below -10$`);
 		for (let i = 0; i < grades.length; i++) {
 			from = grades[i];
 			to = grades[i + 1];
@@ -180,6 +182,147 @@ title: US Election
 
 
 
+<h2>County results</h2>
+<div id='map2'></div>
+
+<script src="us_counties.js"></script>
+
+<script type="text/javascript">
+    L.Browser.webkit3d = false;
+    L.Browser.any3d = false;
+	const cmap = L.map('map2').setView([37.8, -96], 4);
+    var selectedLayer;
+
+	const ctiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 19,
+		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	}).addTo(cmap);
+
+	// control that shows state info on hover
+	const cinfo = L.control();
+
+	cinfo.onAdd = function (cmap) {
+		this._div = L.DomUtil.create('div', 'info');
+		this.update();
+		return this._div;
+	};
+
+	cinfo.update = function (props) {
+		const contents = props ? `<b>${props.name}</b><br />
+		<table> 
+			<tr>
+				<td><b> Kamala Harris</b></td>
+				<td>${props.harris}%</td>
+			<tr/>
+			<tr> 
+				<td><b>Donald Trump</b></td>
+				<td>${props.trump}%</td> 
+			</tr> 
+			<tr>
+				<td><b>Others</b></td>
+				<td>${props.third_party}%</td>
+			</tr>
+			<tr>
+				<td><b>Progress:</b></td>
+				<td>${props.progress}%</td> 
+			</tr>
+		</table>` : 'Click on a state';
+		this._div.innerHTML = `<h4>Results </h4>${contents}`;
+	};
+
+	cinfo.addTo(cmap);
+
+
+	// get color depending on population density value
+	function getColor(d) {
+		return d <= -10 ? '#FF0000' :
+			d < -5  ? '#FF2B2B' :
+			d < -2.5  ? '#FF5555' :
+			d < -0.5   ? '#FFAAAA' :
+			d < 0.5  ? '#FFFFFF' :
+			d < 2.5 ? '#8080FF' :
+			d < 5  ? '#5555FF' :
+			d < 10  ? '#2B2BFF' :
+			d >= 10   ? '#0000FF' : '#99FF00';
+	}
+
+	function style(feature) {
+		return {
+			weight: 2,
+			opacity: 1,
+			color: 'white',
+			dashArray: '3',
+			fillOpacity: 0.7,
+			fillColor: getColor(feature.properties.margin)
+		};
+	}
+
+	function highlightFeature(e) {
+		const layer = e.target;
+        removeHighlight(layer);
+		layer.setStyle({
+			weight: 5,
+			color: '#666',
+			dashArray: '',
+			fillOpacity: 0.7
+		});
+
+		layer.bringToFront();
+
+		cinfo.update(layer.feature.properties);
+        selectedLayer = layer;
+	}
+    
+
+	/* global statesData */
+	const cgeojson = L.geoJson(countyData, {
+		style,
+		onEachFeature
+	}).addTo(map);
+
+	function resetHighlight(e) {
+		cgeojson.resetStyle(e.target);
+		cinfo.update();
+	}
+
+	function zoomToFeature(e) {
+		cmap.fitBounds(e.target.getBounds());
+	}
+    function removeHighlight(layer) {
+    if (selectedLayer && (selectedLayer !== layer)){
+        resetHighlight(selectedLayer); 
+    }       
+    }
+	function onEachFeature(feature, layer) {
+		layer.on({
+			click: highlightFeature
+		});
+	}
+
+
+	const legend = L.control({position: 'bottomright'});
+
+	legend.onAdd = function (cmap) {
+
+		const div = L.DomUtil.create('div', 'info legend');
+		const grades = [-10, -5, -2.5, -0.5, 0.5, 2.5, 5, 10];
+		const labels = [];
+		let from, to;
+		labels.push(`<i style="background:${getColor(-10)}"></i> Below -10$`);
+		for (let i = 0; i < grades.length; i++) {
+			from = grades[i];
+			to = grades[i + 1];
+
+			labels.push(`<i style="background:${getColor(from + 1)}"></i> ${from}${to ? `&ndash; ${to}` : '+'}`);
+		}
+
+		div.innerHTML = labels.join('<br>');
+		return div;
+	};
+
+	legend.addTo(cmap);
+
+</script>
 
 
 </body>
