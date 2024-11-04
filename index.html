@@ -163,13 +163,14 @@ title: US Election
 		const div = L.DomUtil.create('div', 'info legend');
 		const grades = [-10, -5, -2.5, -0.5, 0.5, 2.5, 5, 10];
 		const labels = [];
+		const colors = ["#FF2B2B","#FF5555","#FFAAAA","#FFFFFF","#8080FF","#5555FF","#2B2BFF","#0000FF"]
 		let from, to;
 		labels.push(`<b>Margin</b><i style="background:${getColor(-10)}"></i> Below -10`);
 		for (let i = 0; i < grades.length; i++) {
 			from = grades[i];
 			to = grades[i + 1];
-
-			labels.push(`<i style="background:${getColor(from + 1)}"></i> ${from}${to ? `&ndash; ${to}` : '+'}`);
+			color = colors[i]
+			labels.push(`<i style="background:${color}"></i> ${from}${to ? `&ndash; ${to}` : '+'}`);
 		}
 
 		div.innerHTML = labels.join('<br>');
@@ -290,7 +291,7 @@ title: US Election
 	}).addTo(cmap);
 	const sgeojson = L.geoJson(statesData, {
 		statestyle
-	}).addTo(map);
+	}).addTo(cmap);
 	function resetHighlight(e) {
 		cgeojson.resetStyle(e.target);
 		cinfo.update();
@@ -317,14 +318,15 @@ title: US Election
 
 		const div = L.DomUtil.create('div', 'info legend');
 		const cgrades = [-10, -5, -2.5, -0.5, 0.5, 2.5, 5, 10];
+		const ccolors = ["#FF2B2B","#FF5555","#FFAAAA","#FFFFFF","#8080FF","#5555FF","#2B2BFF","#0000FF"]
 		const clabels = [];
 		let from, to;
 		clabels.push(`<b>Margin</b><i style="background:${getColor(-10)}"></i> Below -10`);
 		for (let i = 0; i < cgrades.length; i++) {
 			from = cgrades[i];
 			to = cgrades[i + 1];
-
-			clabels.push(`<i style="background:${getColor(from + 1)}"></i> ${from}${to ? `&ndash; ${to}` : '+'}`);
+			color = ccolors[i]
+			clabels.push(`<i style="background:${color}"></i> ${from}${to ? `&ndash; ${to}` : '+'}`);
 		}
 
 		div.innerHTML = clabels.join('<br>');
