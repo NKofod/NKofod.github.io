@@ -123,9 +123,7 @@ title: US Election
 		map.fitBounds(e.target.getBounds());
 	}
     function removeHighlight(layer) {
-    if (selectedLayer && (selectedLayer !== layer)){
         resetHighlight(selectedLayer); 
-    }       
     }
 	function onEachFeature(feature, layer) {
 		layer.on({
