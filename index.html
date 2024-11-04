@@ -62,8 +62,26 @@ title: US Election
 	};
 
 	info.update = function (props) {
-		const contents = props ? `<b>${props.name}</b><br />${props.density} people / mi<sup>2</sup>` : 'Hover over a state';
-		this._div.innerHTML = `<h4>US Population Density</h4>${contents}`;
+		const contents = props ? `<b>${probs.name}</b><br />
+		<table> 
+			<tr>
+				<td><b> Kamala Harris</b></td>
+				<td>${props.harris}%</td>
+			<tr/>
+			<tr> 
+				<td><b>Donald Trump</b></td>
+				<td>${probs.trump}</td> 
+			</tr> 
+			<tr>
+				<td><b>Others</b></td>
+				<td>$probs.third_party</td>
+			</tr>
+			<tr>
+				<td><b>Progress:</b></td>
+				<td>$probs.progress</td> 
+			</tr>
+		</table>` : 'Click on a state';
+		this._div.innerHTML = `<h4>Results </h4>${contents}`;
 	};
 
 	info.addTo(map);
@@ -123,15 +141,15 @@ title: US Election
 		map.fitBounds(e.target.getBounds());
 	}
     function removeHighlight(layer) {
+    if (selectedLayer && (selectedLayer !== layer)){
         resetHighlight(selectedLayer); 
+    }       
     }
 	function onEachFeature(feature, layer) {
 		layer.on({
 			click: highlightFeature
 		});
 	}
-
-	map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
 
 
 	const legend = L.control({position: 'bottomright'});
