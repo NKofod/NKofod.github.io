@@ -89,13 +89,17 @@ title: US Election
 
 	// get color depending on population density value
 	function getColor(d) {
-		return d > 1000 ? '#800026' :
-			d > 500  ? '#BD0026' :
-			d > 200  ? '#E31A1C' :
-			d > 100  ? '#FC4E2A' :
-			d > 50   ? '#FD8D3C' :
-			d > 20   ? '#FEB24C' :
-			d > 10   ? '#FED976' : '#FFEDA0';
+		return d < -10 ? '#FF0000' :
+			d < -5  ? '#FF2B2B' :
+			d < -2.5  ? '#FF5555' :
+			d < -1  ? '#FF8080' :
+			d < -0.5   ? '#FFAAAA' :
+			d < 0.5  ? '#FFFFFF' :
+			d < 1 ? '#D5D5FF' :
+			d < 2.5 ? '#8080FF' :
+			d < 5  ? '#5555FF' :
+			d < 10  ? '#2B2BFF' :
+			d > 10   ? '#0000FF' : '#99FF00';
 	}
 
 	function style(feature) {
@@ -105,7 +109,7 @@ title: US Election
 			color: 'white',
 			dashArray: '3',
 			fillOpacity: 0.7,
-			fillColor: getColor(feature.properties.density)
+			fillColor: getColor(feature.properties.margin)
 		};
 	}
 
