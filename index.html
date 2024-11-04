@@ -258,7 +258,7 @@ title: US Election
 		};
 	}
 
-	function highlightFeature(e) {
+	function chighlightFeature(e) {
 		const layer = e.target;
         removeHighlight(layer);
 		layer.setStyle({
@@ -281,22 +281,22 @@ title: US Election
 		onEachFeature
 	}).addTo(cmap);
 
-	function resetHighlight(e) {
+	function cresetHighlight(e) {
 		cgeojson.resetStyle(e.target);
 		cinfo.update();
 	}
 
-	function zoomToFeature(e) {
+	function czoomToFeature(e) {
 		cmap.fitBounds(e.target.getBounds());
 	}
-    function removeHighlight(layer) {
+    function cremoveHighlight(layer) {
     if (cselectedLayer && (cselectedLayer !== layer)){
         resetHighlight(cselectedLayer); 
     }       
     }
 	function onEachFeature(feature, layer) {
 		layer.on({
-			click: highlightFeature
+			click: chighlightFeature
 		});
 	}
 
