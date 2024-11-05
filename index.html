@@ -255,7 +255,7 @@ title: US Election
 		return {
 			weight: 0.5,
 			opacity: 1,
-			color: 'white',
+			color: '#89CFF0',
 			dashArray: '3',
 			fillOpacity: 0.7,
 			fillColor: getColor(feature.properties.margin)
@@ -295,7 +295,7 @@ title: US Election
 	}
     function cremoveHighlight(layer) {
     if (cselectedLayer && (cselectedLayer !== layer)){
-        resetHighlight(cselectedLayer); 
+        cresetHighlight(cselectedLayer); 
     }       
     }
 	function onEachFeature(feature, layer) {
