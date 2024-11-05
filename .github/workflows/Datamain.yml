@@ -1,4 +1,4 @@
-name: python_stock_fetcher 
+name: updateData
 on:
   schedule:
     - cron: "*/10 * * * *" #runs at 00:00 UTC everyday
