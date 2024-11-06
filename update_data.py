@@ -43,11 +43,11 @@ for contest in v_dict["contests"]:
     for i in national_feature_map['features']:
         if i['id'] == tmp_id:
             tmp_property_dict = i['properties']
-            tmp_property_dict["harris"] = harris
-            tmp_property_dict["trump"] = trump
-            tmp_property_dict["third_party"] = third_party
-            tmp_property_dict["progress"] = progress
-            tmp_property_dict["margin"] = harris - trump
+            tmp_property_dict["harris"] = f"{harris:2.2f}"
+            tmp_property_dict["trump"] = f"{trump:2.2f}"
+            tmp_property_dict["third_party"] = f"{third_party:2.2f}"
+            tmp_property_dict["progress"] = f"{progress:2.2f}"
+            tmp_property_dict["margin"] = f"{harris - trump:2.2f}"
             #tmp_property_dict["margin"] = random.randint(-15,15)
             i["properties"] = tmp_property_dict
 with open("us_states.js", "w") as outfile:
@@ -82,11 +82,11 @@ for feature in national_feature_map['features']:
             if i['id'] == tmp_id:
                 tmp_property_dict = i['properties']
                 tmp_property_dict["state"] = feature["properties"]["name"]
-                tmp_property_dict["harris"] = harris
-                tmp_property_dict["trump"] = trump
-                tmp_property_dict["third_party"] = third_party
-                tmp_property_dict["progress"] = progress
-                tmp_property_dict["margin"] = harris - trump
+                tmp_property_dict["harris"] = f"{harris:2.2f}"
+                tmp_property_dict["trump"] = f"{trump:2.2f}"
+                tmp_property_dict["third_party"] = f"{third_party:2.2f}"
+                tmp_property_dict["progress"] = f"{progress:2.2f}"
+                tmp_property_dict["margin"] = f"{harris - trump:2.2f}"
                 # tmp_property_dict["margin"] = random.randint(-15,15)
                 i["properties"] = tmp_property_dict
 
