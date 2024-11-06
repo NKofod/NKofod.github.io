@@ -40,6 +40,9 @@ for contest in v_dict["contests"]:
         harris = harris/(harris+trump+third_party)
         trump = trump/(harris+trump+third_party)
         third_party = third_party/(harris+trump+third_party)
+        harris *= 100
+        trump *= 100
+        third_party *= 100
     for i in national_feature_map['features']:
         if i['id'] == tmp_id:
             tmp_property_dict = i['properties']
@@ -78,6 +81,9 @@ for feature in national_feature_map['features']:
             harris = harris/(harris+trump+third_party)
             trump = trump/(harris+trump+third_party)
             third_party = third_party/(harris+trump+third_party)
+            harris *= 100
+            trump *= 100
+            third_party *= 100
         for i in county_feature_map['features']:
             if i['id'] == tmp_id:
                 tmp_property_dict = i['properties']
