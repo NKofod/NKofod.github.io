@@ -53,7 +53,7 @@ for contest in v_dict["contests"]:
 with open("us_states.js", "w") as outfile:
     outfile.write(f"var statesData = {json.dumps(national_feature_map)}")
 
-with open(f"us_states_{time.time():.0f}.json") as outfile:
+with open(f"us_states_{time.time():.0f}.json", "w") as outfile:
 			json.dump(national_feature_map, outfile)
 
 for feature in national_feature_map['features']:
@@ -94,5 +94,5 @@ with open("us_counties.js", "w") as outfile:
     outfile.write(f"var countyData = {json.dumps(county_feature_map)}")
 
 
-with open(f"us_counties_{time.time():.0f}.json") as outfile:
+with open(f"us_counties_{time.time():.0f}.json", "w") as outfile:
 			json.dump(county_feature_map, outfile)
